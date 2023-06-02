@@ -1,0 +1,32 @@
+---
+title: "Chapter 01"
+output: html_document
+date: '2023-06-02'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#install.packages("sand")
+#install.packages("igraph")
+```
+
+
+```{r}
+library(igraph)
+library(sand)
+```
+
+If we run the "install_sand_packages()" line without BiocManager we receive an error.
+https://bioconductor.org/install/
+
+```{r}
+install_sand_packages()
+```
+```{r}
+install.packages("BiocManager")
+```
+```{r}
+BiocManager::install(c("install_sand_packages"))
+```
