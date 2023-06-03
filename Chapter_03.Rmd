@@ -98,7 +98,7 @@ V(karate)$Faction
 ```{r}
 strength(karate)
 ```
-
+```{r}
 # Now decorate, starting with labels.
 V(karate)$label <- sub("Actor ", "", V(karate)$name)
 # Two leaders get shapes different from club members.
@@ -124,87 +124,88 @@ V(karate)$label.dist <-
    ifelse(V(karate)$size >= 9.0, 0, 1.0)
 # Plot decorated graph, using same layout.
 plot(karate, layout=l)
+```
 
-# CHUNK 9
-library(sand)
-data(lazega)
 # Office location indicated by color.
+```{r}
 colbar <- c("red", "dodgerblue", "goldenrod")
 v.colors <- colbar[V(lazega)$Office]
+```
 # Type of practice indicated by vertex shape.
+```{r}
 v.shapes <- c("circle", "square")[V(lazega)$Practice]
+```
 # Vertex size proportional to years with firm.
+```{r}
 v.size <- 3.5*sqrt(V(lazega)$Years)
+```
 # Label vertices according to seniority.
+```{r}
 v.label <- V(lazega)$Seniority
+```
 # Reproducible layout.
+```{r}
 set.seed(42)
 l <- layout_with_fr(lazega)
 plot(lazega, layout=l, vertex.color=v.colors,
    vertex.shape=v.shapes, vertex.size=v.size,
    vertex.label=v.label)
+```
 
-# CHUNK 10
-library(sand)
+
+```{r}
 summary(fblog)
-# ---
-## IGRAPH ee79c98 UN-- 192 1431 -- 
-## + attr: name (v/c), PolParty (v/c)
-# ---
-
-# CHUNK 11
+```
+```{r}
 party.names <- sort(unique(V(fblog)$PolParty))
 party.names
-# ---
-## [1] " Cap21"                   " Commentateurs Analystes"
-## [3] " Les Verts"               " liberaux"
-## [5] " Parti Radical de Gauche" " PCF - LCR"
-## [7] " PS"                      " UDF"
-## [9] " UMP"
-# ---
+```
 
-# CHUNK 12
+```{r}
 set.seed(42)
 l = layout_with_kk(fblog)
 party.nums.f <- as.factor(V(fblog)$PolParty)
 party.nums <- as.numeric(party.nums.f)
+```
 # igraph color palette has 8 colors
 # 9 colors needed (for 9 political parties)
+```{r}
 library(RColorBrewer)
 colrs <- brewer.pal(9,"Set1")
 V(fblog)$color <- colrs[party.nums]
 plot(fblog, layout=l, vertex.label=NA,
       vertex.size=3)
-
-# CHUNK 13
+```
+```{r}
 set.seed(42)
 l <- layout_with_drl(fblog)
 plot(fblog, layout=l, vertex.size=5, vertex.label=NA)
+```
 
-# CHUNK 14
+```{r}
 fblog.c <- contract(fblog, party.nums)
 E(fblog.c)$weight <- 1
 fblog.c <- simplify(fblog.c)
+```
 
-# CHUNK 15
+```{r}
 party.size <- as.vector(table(V(fblog)$PolParty))
 plot(fblog.c, vertex.size=5*sqrt(party.size),
       vertex.label=party.names, vertex.color=colrs,
       edge.width=sqrt(E(fblog.c)$weight),
       vertex.label.dist=3.5, edge.arrow.size=0)
+```
 
-# CHUNK 16
+```{r}
 data(karate)
 k.nbhds <- make_ego_graph(karate, order=1)
+```
 
-# CHUNK 17
+```{r}
 sapply(k.nbhds, vcount)
-# ---
-##  [1] 17 10 11  7  4  5  5  5  6  3  4  2  3  6  3  3  3
-## [18]  3  3  4  3  3  3  6  4  4  3  5  4  5  5  7 13 18
-# ---
+```
 
-# CHUNK 18
+```{r}
 k.1 <- k.nbhds[[1]]
 k.34 <- k.nbhds[[34]]
 par(mfrow=c(1,2))
@@ -212,3 +213,4 @@ plot(k.1, vertex.label=NA,
    vertex.color=c("red", rep("lightblue", 16)))
 plot(k.34, vertex.label=NA,
    vertex.color=c(rep("lightblue", 17), "red"))
+```
